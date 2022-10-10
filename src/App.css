@@ -113,3 +113,12 @@ td.no, .action {
   padding: .4rem .2rem;
   outline: none;
 }
+
+.error-message {
+  font-size: .8rem;
+  color: red;
+}
+
+.btn[disabled] {
+  background-color: #642cfd9b;
+}
