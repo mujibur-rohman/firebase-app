@@ -1,38 +1,115 @@
-.App {
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #5114F8;
+}
+
+.card {
+  margin: 0 auto;
+  margin-top: 5rem;
+  width: 60vw;
+  background-color: #FFFFFF;
+  padding: 3rem;
+  border-radius: 8px;
+}
+
+.card h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  padding: .6rem .8rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.btn-edit {
+  background-color: rgb(246, 172, 14);
+  color: white;
+}
+.btn-delete {
+  background-color: rgb(255, 25, 25);
+  color: white;
+  margin-right: 10px;
+}
+.btn-add {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #5114F8;
+  color: white;
+  margin-bottom: 1rem;
+}
+.btn-add-form {
+  background-color: #5114F8;
+  color: white;
+  width: 100%;
+}
+.btn-back-form {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #cacaca;
+  color: white;
+  text-align: center;
+  font-size: .9rem;
+  margin-top: .5rem;
+  width: 100%;
+}
+
+table.customTable {
+  width: 100%;
+  background-color: #FFFFFF;
+  border-collapse: collapse;
+  border-width: 2px;
+  border-color: #5114F8;
+  border-style: solid;
+  color: #FFFFFF;
+}
+
+table.customTable td, table.customTable th {
+  border-width: 2px;
+  border-color: #5114F8;
+  border-style: solid;
+  padding: .5rem .4rem;
+}
+
+table.customTable td {
+  color: black;
+}
+
+table.customTable thead {
+  background-color: #5114F8;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+td.no, .action {
+  text-align: center;
+} 
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.col {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 1rem;
 }
 
-.App-link {
-  color: #61dafb;
+.form-group {
+  width: 100%;
+  margin-bottom: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form-group label {
+  font-size: .9rem;
+  margin-bottom: .4rem;
+  display: inline-block;
+}
+
+.input {
+  width: 100%;
+  padding: .4rem .2rem;
+  outline: none;
 }
