@@ -1,26 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../config';
+import StudentItem from './StudentItem';
 
 const UserLists = () => {
   const [students, setStudents] = useState([]);
   useEffect(() => {
-    const fetchData = async () => {
-      let list = [];
-      try {
-        const querySnapshot = await getDocs(collection(db, 'students'));
-        querySnapshot.forEach((doc) => {
+    // const fetchData = async () => {
+    //   let list = [];
+    //   try {
+    //     const querySnapshot = await getDocs(collection(db, 'students'));
+    //     querySnapshot.forEach((doc) => {
+    //       list.push({ id: doc.id, ...doc.data() });
+    //     });
+    //     setStudents(list);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+    // fetchData();
+    const unsub = onSnapshot(
+      collection(db, 'students'),
+      (snapshot) => {
+        let list = [];
+        snapshot.docs.forEach((doc) => {
           list.push({ id: doc.id, ...doc.data() });
         });
         setStudents(list);
-      } catch (error) {
-        console.log(error);
-      }
+      },
+      (error) => console.log(error)
+    );
+
+    return () => {
+      unsub();
     };
-    fetchData();
   }, []);
-  console.log(students);
 
   return (
     <>
@@ -40,16 +55,7 @@ const UserLists = () => {
         </thead>
         <tbody>
           {students.map((student) => (
-            <tr key={student.id}>
-              <td className="no">1</td>
-              <td>{student.nama}</td>
-              <td>{student.address}</td>
-              <td>{student.jurusan}</td>
-              <td className="action">
-                <button className="btn btn-delete">Delete</button>
-                <button className="btn btn-edit">Edit</button>
-              </td>
-            </tr>
+            <StudentItem student={student} key={student.id} />
           ))}
         </tbody>
       </table>
