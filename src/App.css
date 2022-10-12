@@ -122,3 +122,8 @@ td.no, .action {
 .btn[disabled] {
   background-color: #642cfd9b;
 }
+
+.text-sm {
+  font-size: .8rem;
+  margin-left: 1rem;
+}
