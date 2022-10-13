@@ -4,7 +4,6 @@ import { Form, Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { auth } from '../../config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { async } from '@firebase/util';
 
 const Login = () => {
   const initialValues = {
