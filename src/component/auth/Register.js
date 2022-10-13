@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import { auth } from '../../config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const Register = () => {
   const initialValues = {
@@ -18,8 +20,18 @@ const Register = () => {
       .oneOf([yup.ref('password'), null], 'Password must match'),
   });
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values, props) => {
+    await createUserWithEmailAndPassword(auth, values.email, values.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        if (error.code === 'auth/email-already-in-use') {
+          alert('Email sudah terdaftar');
+        }
+      });
+    props.setSubmitting(false);
   };
   return (
     <>
@@ -74,6 +86,7 @@ const Register = () => {
                 </div>
               </div>
               <button
+                type="submit"
                 className="btn btn-add"
                 disabled={!props.isValid || props.isSubmitting}
               >
