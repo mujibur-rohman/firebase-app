@@ -1,14 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Form, Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { auth } from '../../config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { login } from '../../app/features/user/userSlice';
 
 const Login = () => {
-  const userState = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const initialValues = {
     email: '',
@@ -25,10 +25,9 @@ const Login = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         dispatch(login(user));
-        console.log(userState);
+        navigate('/', { replace: true });
       })
       .catch((error) => {
-        console.log(error.code);
         if (error.code === 'auth/user-not-found')
           alert('Email belum terdaftar');
         if (error.code === 'auth/wrong-password') alert('Password Salah');
