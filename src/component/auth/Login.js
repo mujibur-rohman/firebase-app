@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import { auth } from '../../config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { async } from '@firebase/util';
 
 const Login = () => {
   const initialValues = {
@@ -14,8 +17,19 @@ const Login = () => {
     password: yup.string().required().min(6),
   });
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values, props) => {
+    await signInWithEmailAndPassword(auth, values.email, values.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error.code);
+        if (error.code === 'auth/user-not-found')
+          alert('Email belum terdaftar');
+        if (error.code === 'auth/wrong-password') alert('Password Salah');
+      });
+    props.setSubmitting(false);
   };
 
   return (
@@ -58,6 +72,7 @@ const Login = () => {
                 </div>
               </div>
               <button
+                type="submit"
                 className="btn btn-add"
                 disabled={!props.isValid || props.isSubmitting}
               >
