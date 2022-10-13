@@ -8,7 +8,14 @@ const initialState = {
 const user = createSlice({
   initialState,
   name: 'user',
-  reducers: {},
+  reducers: {
+    login: (state, action) => {
+      state.user = { ...action.payload };
+      state.isAuth = true;
+    },
+  },
 });
+
+export const { login } = user.actions;
 
 export default user.reducer;
