@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../config';
 import StudentItem from './StudentItem';
+import { useDispatch } from 'react-redux';
+import { logout } from '../app/features/user/userSlice';
 
 const UserLists = () => {
+  const dispatch = useDispatch();
   const [students, setStudents] = useState([]);
   useEffect(() => {
     // const fetchData = async () => {
@@ -43,6 +46,13 @@ const UserLists = () => {
       <Link to={'/add'} className="btn btn-add">
         Tambah
       </Link>
+      <button
+        className="btn"
+        style={{ marginLeft: '1rem' }}
+        onClick={() => dispatch(logout())}
+      >
+        Logout
+      </button>
       <table className="customTable">
         <thead>
           <tr>
